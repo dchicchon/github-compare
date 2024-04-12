@@ -1,6 +1,6 @@
 {
   "name": "github-compare",
-  "homepage":"https://dchicchon.github.io/github-compare",
+  "homepage": "https://dchicchon.github.io/github-compare",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -19,7 +19,6 @@
     "solid-js": "^1.8.15"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.1",
     "vite": "^5.2.0",
     "vite-plugin-solid": "^2.10.2"
   }
