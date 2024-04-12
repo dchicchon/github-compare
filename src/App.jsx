@@ -16,6 +16,8 @@ import {
 import { lazy } from 'solid-js';
 import './App.css';
 
+const baseURL = `https://api.github.com`;
+
 const Chart = lazy(() => import('./Chart'));
 
 const darkTheme = createTheme({
@@ -119,16 +121,34 @@ function App() {
     setRepo('');
   }
 
-  function successMessage(message) {
-    setShow(true);
-    setMessage(message);
+  function testFade() {
+    setShow(!show());
+    setMessage('hiya');
     setMessageType('success');
   }
 
+  function successMessage(message) {
+    setShow(!show());
+    setMessage(message);
+    setMessageType('success');
+    setTimeout(() => {
+      setShow(!show());
+      setMessage('');
+      setMessageType('');
+      // autoremove the alert?
+    }, 3000);
+  }
+
   function errorMessage(message) {
-    setShow(true);
     setMessage(message);
     setMessageType('error');
+    setShow(!show());
+    setTimeout(() => {
+      setShow(!show());
+      setMessage('');
+      setMessageType('');
+      // autoremove the alert?
+    }, 3000);
   }
 
   function handleDelete(title) {
@@ -136,7 +156,7 @@ function App() {
   }
 
   onMount(() => {
-    addToRepos('https://github.com/solidjs/solid');
+    // addToRepos('https://github.com/solidjs/solid');
   });
 
   return (
@@ -152,6 +172,7 @@ function App() {
         <Box displayRaw="flex" justifyContent="center">
           <TextField
             fullWidth={true}
+            defaultValue="https://github.com/solidjs/solid"
             placeholder="https://github.com/facebook/react"
             label="Github Repo Link"
             value={repo()}
@@ -160,6 +181,7 @@ function App() {
           <Button variant="outlined" onClick={() => addToRepos(repo())}>
             Add
           </Button>
+          <Button onClick={() => testFade()}>Test Fade</Button>
         </Box>
 
         <Suspense
@@ -182,10 +204,12 @@ function App() {
             )}
           </For>
         </Box>
+        <Fade in={show()}>
+          <Alert variant="outlined" severity={messageType()}>
+            {message()}
+          </Alert>
+        </Fade>
       </Stack>
-      <Alert variant="outlined" severity={messageType()}>
-        {message()}
-      </Alert>
     </Container>
   );
 }
