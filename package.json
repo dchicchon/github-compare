@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@suid/icons-material": "^0.7.0",
@@ -18,6 +17,7 @@
     "solid-js": "^1.8.15"
   },
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "vite": "^5.2.0",
     "vite-plugin-solid": "^2.10.2"
   }
